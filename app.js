@@ -31,6 +31,11 @@ function addToList(colleges) {
     let li = document.createElement("li");
 
     let name = document.createElement("p");
+
+    let a = document.createElement("a");
+    a.href=college.web_pages[0];
+    a.setAttribute("target","_blank")
+
     name.classList.add("Head");
     name.innerText = college.name;
 
@@ -38,8 +43,15 @@ function addToList(colleges) {
     state.classList.add("state");
     state.innerText = college["state-province"];
 
-    li.appendChild(name);
-    li.appendChild(state);
+    li.appendChild(a);
+    a.appendChild(name)
+    a.appendChild(state);
     list.appendChild(li);
   }
 }
+
+list.addEventListener("click", (event) => {
+  console.log(event.target);
+});
+
+

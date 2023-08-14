@@ -11,11 +11,13 @@ btn.addEventListener("click", async () => {
 
 async function getColleges(url) {
   try {
-    let resData = await fetch(url);
-    let jsonData = await resData.json();
-    console.log(jsonData);
-    if (jsonData.length > 0) {
-      addToList(jsonData);
+    // let resData = await fetch(url);
+    // let jsonData = await resData.json();
+
+    let res = await axios.get(url);
+    console.log(res.data[0]);
+    if (res.data.length > 0) {
+      addToList(res.data);
     } else {
       list.innerHTML = `<li><h2 class="Head"> No Result Found .. </h2></li>`;
       throw "Wrong parameters";
@@ -33,8 +35,8 @@ function addToList(colleges) {
     let name = document.createElement("p");
 
     let a = document.createElement("a");
-    a.href=college.web_pages[0];
-    a.setAttribute("target","_blank")
+    a.href = college.web_pages[0];
+    a.setAttribute("target", "_blank");
 
     name.classList.add("Head");
     name.innerText = college.name;
@@ -44,7 +46,7 @@ function addToList(colleges) {
     state.innerText = college["state-province"];
 
     li.appendChild(a);
-    a.appendChild(name)
+    a.appendChild(name);
     a.appendChild(state);
     list.appendChild(li);
   }
@@ -53,5 +55,3 @@ function addToList(colleges) {
 list.addEventListener("click", (event) => {
   console.log(event.target);
 });
-
-
